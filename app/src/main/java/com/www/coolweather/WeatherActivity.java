@@ -224,7 +224,7 @@ public class WeatherActivity extends AppCompatActivity {
          *  AutoUpdateService 就会一直在后台运行，并保证每 4 小时更新一次天气
          */
         Intent intent = new Intent(this, AutoUpdateService.class);
-        startActivity(intent);
+        startService(intent);
 
     }
 
