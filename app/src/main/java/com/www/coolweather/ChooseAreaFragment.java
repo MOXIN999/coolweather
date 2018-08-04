@@ -88,10 +88,24 @@ public class ChooseAreaFragment extends Fragment {
                     queryCounties();
                 }else if (currentLevel == LEVEL_COUNTY){
                     String weatherId = countyList.get(position).getWeatherId();
-                    Intent intent = new Intent(getActivity(), WeatherActivity.class);
-                    intent.putExtra("weather_id",weatherId);
-                    startActivity(intent);
-                    getActivity().finish();
+
+                    //使用 instanceof 关键字来判断一个对象是否属于某个类的实例
+                    /**
+                     * 在碎片中调用 getActivity() 方法，然后配合 instanceof 关键字就能判断出该碎片是在 MainActivity 当中，
+                     * 还是在 WeatherActivity 当中。如果在 MainActivity 当中，则处理逻辑不变。若在 WeatherActivity 当中，
+                     * 那么就关闭滑动菜单，显示下拉刷新进度条，然后请求新城市的天气信息
+                     */
+                    if (getActivity() instanceof  MainActivity) {
+                        Intent intent = new Intent(getActivity(), WeatherActivity.class);
+                        intent.putExtra("weather_id", weatherId);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }else if (getActivity() instanceof WeatherActivity){
+                        WeatherActivity activity = (WeatherActivity) getActivity();
+                        activity.drawerLayout.closeDrawers();
+                        activity.swipeRefresh.setRefreshing(true);
+                        activity.requestWeather(weatherId);
+                    }
                 }
             }
         });
