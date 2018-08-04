@@ -9,8 +9,8 @@ import okhttp3.Request;
 
 public class HttpUtil {
 
-    //和服务器的交互来获取全国所有省市县的数据
-    public static void sendOkHttpRequest(String address,okhttp3.Callback callback){
+        //和服务器的交互来获取全国所有省市县的数据
+        public static void sendOkHttpRequest(String address,okhttp3.Callback callback){
         //创建一个OkHttpClient的实例
         OkHttpClient client = new OkHttpClient();
         //若想发起一条HTTP的请求，则创建一个Request的对象，并通过url()方法来设置目标网络的地址
